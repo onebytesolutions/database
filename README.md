@@ -13,7 +13,7 @@ Database Library - A dependency injection based Database Class
 This software was developed during my free time and is free to use.
 
 ### Installation
-To utilize this class, include the autoloader.
+To utilize this class, include the autoloader
 
 ```php
 require_once("Application/Library/Onebytesolutions/Autoloader.php");
@@ -22,6 +22,9 @@ require_once("Application/Library/Onebytesolutions/Autoloader.php");
 ### Initialization
 Simple initialization:
 ```php
+use Application\Library\Onebytesolutions\Database\Database,
+    Application\Library\Onebytesolutions\Database\Adapters\PdoAdapter;
+
 // set db config
 $db = [
     'host' => 'localhost',
