@@ -13,14 +13,14 @@ Database Library - A dependency injection based Database Class
 This software was developed during my free time and is free to use.
 
 ### Installation
-To utilize this class, include the autolaoder.
+To utilize this class, include the autoloader.
 
 ```php
 require_once("Application/Library/Onebytesolutions/Autoloader.php");
 ```
 
 ### Initialization
-Simple initialization with utf8 charset set by default:
+Simple initialization:
 ```php
 // set db config
 $db = [
@@ -66,8 +66,8 @@ $database->updateRowWhere("user", ["lastLogin" => time()], "id", 1);
 ```
 
 ### Select Query
-// example of fetching a query as an array
 ```php
+// example of fetching a query as an array
 $sql = "SELECT * FROM users LIMIT 30";
 $params = [];
 $results = $database->queryToArray($sql, $params);
@@ -76,13 +76,13 @@ echo '<pre>'.print_r($results,true).'</pre>';
 ```
 
 ### Delete Query
-// example of deleting a row
 ```php
+// example of deleting a row
 $database->deleteWhere("users", "id", 1);
 ```
 
 ### Raw Query
-// example of running raw sql
 ```php
+// example of running raw sql
 $database->run("UPDATE users SET name = :name", ['name' => 'Alex Doe']);
 ```
