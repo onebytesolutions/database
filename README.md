@@ -1,5 +1,3 @@
-<?php
-
 Database Library - A dependency injection based Database Class
 <hr>
 ### Table of Contents
