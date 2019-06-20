@@ -1,7 +1,7 @@
 {
     "name": "onebytesolutions/database",
     "description": "Database Library - A dependency injection based Database Class",
-	"keywords" : ['Database', 'MySQL', 'PDO', ]
+	"keywords" : ["Database", "MySQL", "PDO"]
     "type": "library",
     "authors": [
         {
