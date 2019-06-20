@@ -10,7 +10,9 @@
 			"url": "https://github.com/onebytesolutions/database.git"
         }
     ],
-    "require": {},
+    "require": {
+		"php" : "^5.5 || ^7.0"
+	},
 	"autoload": {
         "psr-0" : {
             "OneByteSolutions\\Database" : "src"

@@ -1,6 +1,6 @@
 <?php
-use Application\Library\Onebytesolutions\Database\Database,
-    Application\Library\Onebytesolutions\Database\Adapters\PdoAdapter;
+use OneByteSolutions\Database\Database,
+    OneByteSolutions\Database\Adapters\PdoAdapter;
     
 /**
  * Use Case Example
@@ -8,14 +8,11 @@ use Application\Library\Onebytesolutions\Database\Database,
  * @category  Example
  * @description This is a default autoloader for the entire onebytesolutions library
  * @author    Jason Bryan <jason@onebytesolutions.com>
- * @copyright Copyright (c) 2017
+ * @copyright Copyright (c) 2019
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
- * @link      https://github.com/onebytesolutions/database-library
- * @version   1.0
+ * @link      https://github.com/onebytesolutions/database
+ * @version   1.1
  */
- 
-// include autoloader
-require_once("Application/Library/Onebytesolutions/Autoloader.php");
 
 // set db config
 $db = [
