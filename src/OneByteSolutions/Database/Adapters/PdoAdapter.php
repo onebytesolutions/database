@@ -2,7 +2,7 @@
 namespace OneByteSolutions\Database\Adapters;
 
 use PDO,
-    OneByteSolutions\AdapterInterface;
+    OneByteSolutions\Database\AdapterInterface;
 
 /**
  * PDO Adapter
