@@ -15,7 +15,7 @@
 	},
 	"autoload": {
         "psr-0" : {
-            "OneByteSolutions\\Database" : "src"
+            "OneByteSolutions\\Database" : "src/"
         }
     }
 }
