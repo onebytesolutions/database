@@ -2,8 +2,10 @@ Database Library - A dependency injection based Database Class
 <hr>
 ### Table of Contents
 
+**[Installation](#installation)**  
 **[Initialization](#initialization)**  
 **[Insert Query](#insert-query)**  
+**[Insert Batch Query](#insert-batch-query)**  
 **[Update Query](#update-query)**  
 **[Select Query](#select-query)**  
 **[Delete Query](#delete-query)**  
@@ -12,6 +14,11 @@ Database Library - A dependency injection based Database Class
 
 This software was developed during my free time and is free to use.
 
+### Installation
+Composer
+```php
+composer require onebytesolutions/database
+```
 
 ### Initialization
 Simple initialization:
