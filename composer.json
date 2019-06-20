@@ -1,0 +1,19 @@
+{
+    "name": "onebytesolutions/database",
+    "description": "Database Library - A dependency injection based Database Class",
+	"keywords" : ['Database', 'MySQL', 'PDO', ]
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jason Bryan",
+            "email": "jason@onebytesolutions.com",
+			"url": "https://github.com/onebytesolutions/database.git"
+        }
+    ],
+    "require": {},
+	"autoload": {
+        "psr-0" : {
+            "OneByteSolutions\\Database" : "src"
+        }
+    }
+}

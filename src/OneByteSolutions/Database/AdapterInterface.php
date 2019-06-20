@@ -1,15 +1,15 @@
 <?php
-namespace Application\Library\Onebytesolutions\Database;
+namespace OneByteSolutions\Database;
 
 /**
  * Adapter Interface
  *
  * @category  Database Access
  * @author    Jason Bryan <jason@onebytesolutions.com>
- * @copyright Copyright (c) 2017
+ * @copyright Copyright (c) 2019
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
- * @link      https://github.com/onebytesolutions/database-library
- * @version   1.0
+ * @link      https://github.com/onebytesolutions/database
+ * @version   1.1
  */
 interface AdapterInterface {
     /**
