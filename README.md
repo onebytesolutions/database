@@ -12,18 +12,12 @@ Database Library - A dependency injection based Database Class
 
 This software was developed during my free time and is free to use.
 
-### Installation
-To utilize this class, include the autoloader
-
-```php
-require_once("Application/Library/Onebytesolutions/Autoloader.php");
-```
 
 ### Initialization
 Simple initialization:
 ```php
-use Application\Library\Onebytesolutions\Database\Database,
-    Application\Library\Onebytesolutions\Database\Adapters\PdoAdapter;
+use OneByteSolutions\Database\Database,
+    OneByteSolutions\Database\Adapters\PdoAdapter;
 
 // set db config
 $db = [
@@ -60,6 +54,26 @@ try {
     echo 'insert failure';
     $database->rollBack();
 }
+```
+
+### Insert Batch Query
+Simple example
+```php
+// example of inserting a bunch of rows
+$rows = [];
+$rows[] = [
+        'name' => 'John Doe ',
+        'email' => 'john.doe@example.org'
+];
+$rows[] = [
+        'name' => 'Jane Doe ',
+        'email' => 'jane.doe@example.org'
+];
+$rows[] = [
+        'name' => 'Sarah Doe ',
+        'email' => 'sarah.doe@example.org'
+];
+$database->insertRowBatch("users", $rows);
 ```
 
 ### Update Query

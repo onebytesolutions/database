@@ -3,6 +3,7 @@
     "description": "Database Library - A dependency injection based Database Class",
 	"keywords" : ["Database", "MySQL", "PDO"],
     "type": "library",
+	"license": "GPL-3.0-or-later",
     "authors": [
         {
             "name": "Jason Bryan",
