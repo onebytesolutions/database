@@ -31,6 +31,13 @@ class Database {
     public function connect() {
         $this->adapter->connect();
     }
+    
+    /**
+     * Get Raw Connection
+     */
+    public function connection() {
+        return $this->adapter->connection();
+    }
 
     /**
      * Run a query
@@ -184,6 +191,72 @@ class Database {
         }
 
         $query = "INSERT " . ($ignoreDuplicate ? "IGNORE" : '') . " INTO " . $table . " (" . $columns . ") VALUES  " . implode(", ", $valueRows);
+
+        $result = $this->adapter->run($query, $params);
+        if ($result) {
+            return $this->adapter->getLastInsertId();
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Insert Or Update Rows
+
+     *  FORMAT:
+     *  $row = array("column_name_1" => "column_value_1", "column_name_2" => "column_value_2", ...)
+     * 
+     * @param String $table 
+     * @param Array [$rows]
+     * @param String $ignoreDuplicate Flag to ignore on duplicate key
+     * 
+     * @return Boolean
+     */
+    public function insertOrUpdateBatch($table, $rows) {
+        $columns = "";
+        $values = "";
+
+        $count = 0;
+        foreach ($rows[0] as $key => $value) {
+            if (++$count != sizeof($rows[0])) {
+                $columns .= "`" . $key . "`, ";
+                $updateColumns = "`" . $key . "` = VALUES($key), ";
+            } else {
+                $columns .= "`" . $key . "`";
+                $updateColumns = "`" . $key . "` = VALUES($key) ";
+            }
+        }
+
+        $params = [];
+        $valueRows = [];
+
+        $v = 0;
+        for ($i = 0; $i < count($rows); $i++) {
+            $count = 0;
+            $values = "(";
+            foreach ($rows[$i] as $key => $value) {
+                $col = 'v' . $v;
+
+                if ($value == '') {
+                    $col = "''";
+                } else {
+                    $params[$col] = $value;
+                    $col = ':' . $col;
+                    $v++;
+                }
+
+                if (++$count != sizeof($rows[$i])) {
+                    $values .= $col . ", ";
+                } else {
+                    $values .= $col;
+                }
+            }
+
+            $values .= ")";
+            $valueRows[] = $values;
+        }
+
+        $query = "INSERT INTO " . $table . " (" . $columns . ") VALUES  " . implode(", ", $valueRows) . " ON DUPLICATE KEY UPDATE $updateColumns";
 
         $result = $this->adapter->run($query, $params);
         if ($result) {

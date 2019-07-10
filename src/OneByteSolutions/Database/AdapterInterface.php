@@ -18,6 +18,11 @@ interface AdapterInterface {
     public function connect();
     
     /**
+     * Get Connection
+     */
+    public function connection();
+    
+    /**
      * Run a query
      * 
      * @param String $sql 

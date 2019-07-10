@@ -1,4 +1,5 @@
 <?php
+
 namespace OneByteSolutions\Database\Adapters;
 
 use PDO,
@@ -15,39 +16,44 @@ use PDO,
  * @version   1.1
  */
 class PdoAdapter implements AdapterInterface {
-    
+
     private $connection;
     private $host;
     private $user;
     private $pass;
     private $database;
-    
+
     /**
      * Instantiate the class
      * 
      * @param Array[host, user, pass, database] $config 
      */
-    public function __construct($config)
-    {
+    public function __construct($config) {
         $this->host = $config['host'];
         $this->user = $config['user'];
         $this->pass = $config['pass'];
         $this->database = $config['database'];
     }
-    
+
     /**
      * Connect to database
      */
-    public function connect()
-    {
+    public function connect() {
         try {
-            $this->connection = new PDO("mysql://host=".$this->host.";dbname=".$this->database, $this->user, $this->pass, array(PDO::ATTR_PERSISTENT => true));
+            $this->connection = new PDO("mysql://host=" . $this->host . ";dbname=" . $this->database, $this->user, $this->pass, array(PDO::ATTR_PERSISTENT => true));
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             throw new \Exception($e->getMessage());
         }
     }
-    
+
+    /**
+     * Get Connection
+     */
+    public function connection() {
+        return $this->connection;
+    }
+
     /**
      * Run a query
      * 
@@ -56,21 +62,20 @@ class PdoAdapter implements AdapterInterface {
      * 
      * @return Boolean
      */
-    public function run($query, $params=array())
-    {
+    public function run($query, $params = array()) {
         try {
             $statement = $this->connection->prepare($query);
             foreach ($params as $key => $value) {
-                $statement->bindValue(":".$key, $value);
+                $statement->bindValue(":" . $key, $value);
             }
             $statement->execute();
-            
+
             return $statement;
         } catch (PDOException $e) {
             throw new \Exception($e->getMessage());
         }
     }
-    
+
     /**
      * Run a query and return the results as an array
      * 
@@ -79,61 +84,55 @@ class PdoAdapter implements AdapterInterface {
      * 
      * @return Array
      */
-    public function queryToArray($query, $params=array())
-    {
+    public function queryToArray($query, $params = array()) {
         try {
             $statement = $this->connection->prepare($query);
             foreach ($params as $key => $value) {
-                $statement->bindValue(":".$key, $value);
+                $statement->bindValue(":" . $key, $value);
             }
             $statement->execute();
             $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-        
         } catch (PDOException $e) {
             throw new \Exception($e->getMessage());
         }
-        
+
         return $result;
     }
-    
+
     /**
      * Get last insert id
      * 
      * @return Integer
      */
-    public function getLastInsertId()
-    {
+    public function getLastInsertId() {
         return $this->connection->lastInsertId();
     }
-    
+
     /**
      * Begin Transaction
      * 
      * @return Boolean
      */
-    public function beginTransaction()
-    {
+    public function beginTransaction() {
         $this->connection->beginTransaction();
     }
-    
+
     /**
      * Commit Transaction
      * 
      * @return Boolean
      */
-    public function commit()
-    {
+    public function commit() {
         $this->connection->commit();
-    }    
-    
+    }
+
     /**
      * Roll-back Transaction
      * 
      * @return Boolean
      */
-    public function rollBack()
-    {
+    public function rollBack() {
         $this->connection->rollBack();
     }
-    
+
 }
