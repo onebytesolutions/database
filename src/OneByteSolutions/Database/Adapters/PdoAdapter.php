@@ -85,13 +85,18 @@ class PdoAdapter implements AdapterInterface {
      * @return Array
      */
     public function queryToArray($query, $params = array()) {
+        $result = [];
+        
         try {
             $statement = $this->connection->prepare($query);
             foreach ($params as $key => $value) {
                 $statement->bindValue(":" . $key, $value);
             }
             $statement->execute();
-            $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+            while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+                $result[] = $row;
+            }
         } catch (PDOException $e) {
             throw new \Exception($e->getMessage());
         }
