@@ -6,10 +6,10 @@ namespace OneByteSolutions\Database;
  *
  * @category  Database Access
  * @author    Jason Bryan <jason@onebytesolutions.com>
- * @copyright Copyright (c) 2019
+ * @copyright Copyright (c) 2023
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @link      https://github.com/onebytesolutions/database
- * @version   1.1
+ * @version   1.2
  */
 interface AdapterInterface {
     /**

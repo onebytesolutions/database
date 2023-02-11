@@ -10,10 +10,10 @@ use PDO,
  *
  * @category  Database Access
  * @author    Jason Bryan <jason@onebytesolutions.com>
- * @copyright Copyright (c) 2019
+ * @copyright Copyright (c) 2023
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @link      https://github.com/onebytesolutions/database
- * @version   1.1
+ * @version   1.2
  */
 class PdoAdapter implements AdapterInterface {
 
@@ -30,6 +30,7 @@ class PdoAdapter implements AdapterInterface {
      */
     public function __construct($config) {
         $this->host = $config['host'];
+		$this->port = (isset($config['port']) ? $config['port'] : '');
         $this->user = $config['user'];
         $this->pass = $config['pass'];
         $this->database = $config['database'];
@@ -40,7 +41,7 @@ class PdoAdapter implements AdapterInterface {
      */
     public function connect() {
         try {
-            $this->connection = new PDO("mysql://host=" . $this->host . ";dbname=" . $this->database, $this->user, $this->pass, array(PDO::ATTR_PERSISTENT => true));
+            $this->connection = new PDO("mysql:host=" . $this->host . ($this->port ? ";port=".$this->port : "") . ";dbname=" . $this->database, $this->user, $this->pass, array(PDO::ATTR_PERSISTENT => true));
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             throw new \Exception($e->getMessage());

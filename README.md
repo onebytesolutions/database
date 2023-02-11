@@ -32,6 +32,7 @@ $db = [
     'user' => 'db-username',
     'pass' => 'db-password',
     'database' => 'database-name'
+	// OPTIONAL: ,'port' => 3308 
 ];
 
 // try to connect to the database
