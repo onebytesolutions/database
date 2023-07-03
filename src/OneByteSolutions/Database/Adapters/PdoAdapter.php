@@ -19,6 +19,7 @@ class PdoAdapter implements AdapterInterface {
 
     private $connection;
     private $host;
+    private $port;
     private $user;
     private $pass;
     private $database;
