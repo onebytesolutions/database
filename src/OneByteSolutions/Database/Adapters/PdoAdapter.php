@@ -13,7 +13,7 @@ use PDO,
  * @copyright Copyright (c) 2023
  * @license   http://opensource.org/licenses/gpl-3.0.html GNU Public License
  * @link      https://github.com/onebytesolutions/database
- * @version   1.2
+ * @version   1.6
  */
 class PdoAdapter implements AdapterInterface {
 
@@ -27,11 +27,11 @@ class PdoAdapter implements AdapterInterface {
     /**
      * Instantiate the class
      * 
-     * @param Array[host, user, pass, database] $config 
+     * @param Array[host, port, user, pass, database] $config 
      */
     public function __construct($config) {
         $this->host = $config['host'];
-		$this->port = (isset($config['port']) ? $config['port'] : '');
+        $this->port = (isset($config['port']) ? $config['port'] : '');
         $this->user = $config['user'];
         $this->pass = $config['pass'];
         $this->database = $config['database'];
@@ -42,9 +42,9 @@ class PdoAdapter implements AdapterInterface {
      */
     public function connect() {
         try {
-            $this->connection = new PDO("mysql:host=" . $this->host . ($this->port ? ";port=".$this->port : "") . ";dbname=" . $this->database, $this->user, $this->pass, array(PDO::ATTR_PERSISTENT => true));
+            $this->connection = new PDO("mysql:host=" . $this->host . ($this->port ? ";port=" . $this->port : "") . ";dbname=" . $this->database, $this->user, $this->pass, array(PDO::ATTR_PERSISTENT => true));
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             throw new \Exception($e->getMessage());
         }
     }
@@ -73,7 +73,7 @@ class PdoAdapter implements AdapterInterface {
             $statement->execute();
 
             return $statement;
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             throw new \Exception($e->getMessage());
         }
     }
@@ -88,7 +88,7 @@ class PdoAdapter implements AdapterInterface {
      */
     public function queryToArray($query, $params = array()) {
         $result = [];
-        
+
         try {
             $statement = $this->connection->prepare($query);
             foreach ($params as $key => $value) {
@@ -99,7 +99,7 @@ class PdoAdapter implements AdapterInterface {
             while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
                 $result[] = $row;
             }
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             throw new \Exception($e->getMessage());
         }
 
@@ -141,5 +141,4 @@ class PdoAdapter implements AdapterInterface {
     public function rollBack() {
         $this->connection->rollBack();
     }
-
 }
